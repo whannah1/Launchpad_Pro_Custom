@@ -10,7 +10,7 @@ def create_instance(c_instance):
 
 def get_capabilities():
     return {CONTROLLER_ID_KEY: controller_id(vendor_id=4661, product_ids=[
-                         81], model_name='Launchpad Pro'), 
+                         81], model_name='Launchpad Pro Custom'), 
        PORTS_KEY: [
                  inport(props=[NOTES_CC, SCRIPT, REMOTE]),
                  inport(props=[]),
