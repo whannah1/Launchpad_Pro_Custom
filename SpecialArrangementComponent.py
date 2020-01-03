@@ -6,11 +6,11 @@ from _Framework.Dependency import depends
 from _Framework.SubjectSlot import subject_slot, subject_slot_group
 from _Framework.ControlSurfaceComponent import ControlSurfaceComponent
 from _Framework.Control import ButtonControl
-from _Framework.SessionComponent import SessionComponent
 from _Framework.MixerComponent import MixerComponent
 from _Framework.ChannelStripComponent import ChannelStripComponent
+from .ArrangementComponent import ArrangementComponent
 
-class SpecialArrangementComponent(SessionComponent):
+class SpecialArrangementComponent(ArrangementComponent):
     # scene_component_type = SpecialSceneComponent
     delete_button = ButtonControl(color='DefaultButton.Off', pressed_color='DefaultButton.On')
     quantize_button = ButtonControl(color='DefaultButton.Off', pressed_color='DefaultButton.On')
@@ -32,7 +32,7 @@ class SpecialArrangementComponent(SessionComponent):
 
     def update_navigation_buttons(self):
         self._vertical_banking.update()
-        self._horizontal_banking.update()
+        # self._horizontal_banking.update()
 
 
     def set_transport_buttons(self, buttons):

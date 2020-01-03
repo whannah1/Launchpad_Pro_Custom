@@ -188,7 +188,7 @@ class Launchpad_Pro(IdentifiableControlSurface, OptimizedControlSurface):
                 self._create_device()
                 self._create_modes()
                 # self._create_user()
-                self._create_transport()
+                self._create_arrangement_transport()
             self._on_session_record_changed.subject = self.song()
         self.set_device_component(self._device)
         self._on_session_record_changed()
@@ -221,14 +221,14 @@ class Launchpad_Pro(IdentifiableControlSurface, OptimizedControlSurface):
         self._session_zoom = SessionZoomingComponent(self._session, name='Session_Overview', is_enabled=True, enable_skinning=True)
 
     def _create_arrangement(self):
-        self._arrangement = SpecialArrangementComponent(NUM_TRACKS, NUM_SCENES, auto_name=True, is_enabled=False, enable_skinning=True, layer=Layer(track_bank_left_button=self._midimap['Arrow_Up_Button'], track_bank_right_button=self._midimap['Arrow_Down_Button'], quantize_button=self._midimap['Quantize_Button']))
+        self._arrangement = SpecialArrangementComponent(NUM_TRACKS, NUM_SCENES, auto_name=True, is_enabled=False, enable_skinning=True, layer=Layer(track_bank_up_button=self._midimap['Arrow_Up_Button'], track_bank_down_button=self._midimap['Arrow_Down_Button'], quantize_button=self._midimap['Quantize_Button']))
         self._arrangement.set_enabled(True)
-        self._arrangement.set_rgb_mode(LIVE_COLORS_TO_MIDI_VALUES, RGB_COLOR_TABLE)
+        # self._arrangement.set_rgb_mode(LIVE_COLORS_TO_MIDI_VALUES, RGB_COLOR_TABLE)
 
     def _create_recording(self):
         self._session_record = SpecialSessionRecordingComponent(self._target_track_component, name='Session_Recording', is_enabled=False, layer=Layer(record_button=self._midimap['Session_Record_Button']))
 
-    def _create_transport(self):
+    def _create_arrangement_transport(self):
         self._transport = TransportComponent(name='Transport', is_enabled=False, play_toggle_model_transform=False )
         self._transport.layer = Layer( play_button=self._midimap['Scene_Launch_Button_Matrix_Raw'][0][7], \
                                        stop_button=self._midimap['Scene_Launch_Button_Matrix_Raw'][0][6], \
@@ -252,6 +252,7 @@ class Launchpad_Pro(IdentifiableControlSurface, OptimizedControlSurface):
         self._mixer = SpecialMixerComponent(NUM_TRACKS, auto_name=True, is_enabled=True, invert_mute_feedback=True)
         self._mixer.name = 'Mixer_Control'
         self._session.set_mixer(self._mixer)
+        self._arrangement.set_mixer(self._mixer)
 
     def _create_device(self):
         self._device = SpecialDeviceComponent(name='Device_Control', is_enabled=False, device_selection_follows_track_selection=True)
