@@ -1,4 +1,4 @@
-# Embedded file name: /Users/versonator/Jenkins/live/output/mac_64_static/Release/python-bundle/MIDI Remote Scripts/Launchpad_Pro/Launchpad_Pro.py
+# Embedded file name: /Users/versonator/Jenkins/live/output/mac_64_static/Release/python-bundle/MIDI Remote Scripts/Launchpad_Pro_Custom/Launchpad_Pro_Custom.py
 # Compiled at: 2018-04-23 20:27:04
 from __future__ import absolute_import, print_function, unicode_literals
 from functools import partial
@@ -163,12 +163,12 @@ class MidiMap(SpecialMidiMap):
          self['Session_Mode_Button']], name=button.name + '_With_Session_Button')
 
 
-class Launchpad_Pro(IdentifiableControlSurface, OptimizedControlSurface):
+class Launchpad_Pro_Custom(IdentifiableControlSurface, OptimizedControlSurface):
     identity_request = consts.SYSEX_IDENTITY_REQUEST
 
     def __init__(self, c_instance, *a, **k):
         product_id_bytes = consts.MANUFACTURER_ID + consts.DEVICE_CODE
-        super(Launchpad_Pro, self).__init__(c_instance=c_instance, product_id_bytes=product_id_bytes, *a, **k)
+        super(Launchpad_Pro_Custom, self).__init__(c_instance=c_instance, product_id_bytes=product_id_bytes, *a, **k)
         self._challenge = Live.Application.get_random_int(0, 400000000) & 2139062143
         with self.component_guard():
             self._skin = make_default_skin()
@@ -197,7 +197,7 @@ class Launchpad_Pro(IdentifiableControlSurface, OptimizedControlSurface):
     def disconnect(self):
         self._send_midi(consts.TURN_OFF_LEDS)
         self._send_midi(consts.QUIT_MESSAGE)
-        super(Launchpad_Pro, self).disconnect()
+        super(Launchpad_Pro_Custom, self).disconnect()
 
     def _create_background(self):
         self._modifier_background_component = ModifierBackgroundComponent(name='Background_Component', is_enabled=False, layer=Layer(shift_button=self._midimap['Shift_Button']))
@@ -252,7 +252,7 @@ class Launchpad_Pro(IdentifiableControlSurface, OptimizedControlSurface):
         self._mixer = SpecialMixerComponent(NUM_TRACKS, auto_name=True, is_enabled=True, invert_mute_feedback=True)
         self._mixer.name = 'Mixer_Control'
         self._session.set_mixer(self._mixer)
-        self._arrangement.set_mixer(self._mixer)
+        # self._arrangement.set_mixer(self._mixer)
 
     def _create_device(self):
         self._device = SpecialDeviceComponent(name='Device_Control', is_enabled=False, device_selection_follows_track_selection=True)
@@ -599,7 +599,7 @@ class Launchpad_Pro(IdentifiableControlSurface, OptimizedControlSurface):
 
     def port_settings_changed(self):
         self.set_highlighting_session_component(None)
-        super(Launchpad_Pro, self).port_settings_changed()
+        super(Launchpad_Pro_Custom, self).port_settings_changed()
         return
 
     def on_identified(self):
@@ -652,4 +652,4 @@ class Launchpad_Pro(IdentifiableControlSurface, OptimizedControlSurface):
                      consts.SYSEX_STATUS_BYTE_LAYOUT):
                         pass
                     else:
-                        super(Launchpad_Pro, self).handle_sysex(midi_bytes)
+                        super(Launchpad_Pro_Custom, self).handle_sysex(midi_bytes)

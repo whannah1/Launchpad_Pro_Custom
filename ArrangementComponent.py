@@ -240,8 +240,7 @@ class ArrangementComponent(CompoundComponent):
     def set_mixer(self, mixer):
         u""" Sets the MixerComponent to be controlled by this session """
         self._mixer = mixer
-        if self._mixer != None:
-            self._mixer.set_track_offset(self.track_offset())
+        # if self._mixer != None: self._mixer.set_track_offset(self.track_offset())
         return
 
     def set_offsets(self, track_offset, scene_offset):
@@ -445,6 +444,8 @@ class ArrangementComponent(CompoundComponent):
         current_tracks = self.current_tracks
         self._on_fired_slot_index_changed.replace_subjects(current_tracks, count())
         self._on_playing_slot_index_changed.replace_subjects(current_tracks, count())
+        self._vertical_banking.update()
+        self._vertical_paginator.update()
         # self._horizontal_banking.update()
         # self._horizontal_paginator.update()
         # self._update_stop_all_clips_button()
